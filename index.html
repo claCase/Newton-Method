@@ -1,0 +1,143 @@
+<!-- 
+Progetto realizzato da Claudio Casellato 4BA:
+disegna una funzione presa in input da una casella di testo e 
+si può modificare le caratteristiche del grafico 
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Disegna Funzione">
+	<meta name="keywords" content="HTML,CSS,JavaScript,funzione,grafico">
+	<meta name="author" content="Claudio Casellato">
+	<title>Graph Drawer Website</title>
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/draw.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/index-style.css">
+	<meta charset="UTF-8">
+</head>
+<body onload="onload()">
+	<div class="sidebar">
+
+		<div class="upper-sidebar">
+			<h1>Caratteristiche</h1>			
+		</div>
+
+		<div class="rows">
+			<h2>Scala Grafico</h2>
+			<input type="text" class="customize" id="scala">	
+		</div>
+		<div class="rows">	
+			<h2>Spessore Linea</h2>
+			<input type="text" class="customize" id="spessore">
+		</div>
+		<div class="rows" id="Colore">
+			<h2>Colore Linea</h2>
+			<input id="linea" class="customize" type="text">
+		</div>
+		<div class="rows" id="Colore">
+			<button id="figure">Figure</button>
+		</div>
+
+		<button id="side-navBtn" onclick="getCaratteristiche()">Configura</button> <!-- Viene chiamata la funzione getCaratteristiche() quando il pulsante viene cliccato -->
+		<button class="guida" id="left-guida">GUIDA</button> <!-- Viene chiamata la funzione showGuide() quando il pulsante viene cliccato --> 
+	</div>
+
+<div class="topBar" id="topBar-funzioni">
+		<h2>GUIDA FUNZIONI</h2>
+		<p>
+		1) Per disegnare la funzione logaritmica utilizzare log() <br/>
+		2) Per disegnare la funzione radice utilizzare rad() <br/>
+		3) Per disegnare la funzione coseno utilizzare cos() <br/>
+		4) Per disegnare la funzione seno utilizzare sin() <br/> 
+		5) Per disegnare la funzione tangente utilizzare tan() <br/>
+		6) Per disegnare la funzione quadratica utilizzare x# <br/>
+		7) Per disegnare la funzione cubica utilizzare x& <br/></p>
+		<button id="chiudi-funzioni" class="chiudi">CHIUDI</button> 
+</div>
+
+<div class="topBar" id="topBar-limiti">
+		<h2>GUIDA LIMITI</h2>
+		<p>
+			1) Per calcolare gli zeri di una qualsiasi funzione scrivere nella barra il codice "zeri:" e poi scrivere la funzione composta nella forma f(x)=g(x) e premere disegna. <br/>
+			2) Inserire il valore dell'intervallo nel quale &egrave; compresa la radice  <br/>
+			3) Inserire il valore dell'approssimazione della radice voluta  <br/>
+			4) Infine premere calcola <br/>
+		</p> 
+		<button class="chiudi" id="chiudi-limiti">CHIUDI</button> 
+</div>
+
+<div class="right_sidebar">
+	
+		<div class="upper-sidebar">
+			<h1>Zeri f(x)</h1>			
+		</div>
+
+		<div class="rows">
+			<h2>Intervallo</h2>
+			<input type="text" class="customize" id="intervallo">	
+		</div>
+
+		<div class="rows">	
+			<h2>Approssimazione</h2>
+			<input type="text" class="customize" id="approssimazione">
+		</div>
+		<button id="right_side-navBtn" onclick="getInfoLim()">CALCOLA</button>
+		<button class="guida" id="right-guida">GUIDA</button>
+</div>
+
+<a href="#"  class="right-button"><img src="img/right-handle.png" width="35px" height="30px">
+</a>
+	<a href="#" class="button"><img src="img/handle.png" width="35px" height="30px">
+	</a>
+
+	<canvas id="canvas"></canvas>
+	<div id="container">
+	<button id="clear" onclick="clearAll()">Clear</button> <!-- Viene chiamata la funzione clarAll() quando il pulsante viene cliccato -->
+		<input type="text"  id="testo" value="f(x)= ">
+		<button id="btnDraw" onclick="draw()">Disegna</button> <!-- Viene chiamata la funzione draw() quando il pulsante viene cliccato -->
+	</div>
+
+	<script>
+		(function($) {
+			$('.button').on('click',function() {
+				$('.sidebar').toggleClass('sidebar-toggle');		
+				$('.button').toggleClass('button-toggle');
+			});
+			$('.right-button').on('click',function() {
+				$('.right_sidebar').toggleClass('right_sidebar-toggle');
+				$('.right-button').toggleClass('button-toggle');
+			});
+			$('#left-guida').on('click',function() {
+				$('.sidebar').toggleClass('sidebar-toggle');		
+				$('.button').toggleClass('button-toggle');
+				$('#topBar-funzioni').toggleClass('showGuide');
+			});
+			$('#right-guida').on('click',function() {
+				$('.right_sidebar').toggleClass('right_sidebar-toggle');	
+				$('.right-button').toggleClass('button-toggle');
+				$('#topBar-limiti').toggleClass('showGuide');
+			});
+			$('#chiudi-funzioni').on('click',function() {
+				$('.sidebar').toggleClass('sidebar-toggle');		
+				$('.button').toggleClass('button-toggle');
+				$('#topBar-funzioni').toggleClass('showGuide');
+			});
+			$('#chiudi-limiti').on('click',function() {
+				$('.right_sidebar').toggleClass('right_sidebar-toggle');	
+				$('.right-button').toggleClass('button-toggle');
+				$('#topBar-limiti').toggleClass('showGuide');
+			});
+			$("#figure").on('click',function() {
+				$('.sidebar').toggleClass('sidebar-toggle');	
+				disegnaFigure();	
+				$('.sidebar').toggleClass('sidebar-toggle');
+			});
+			
+		})(jQuery);
+	</script>
+
+
+</body>
+</html>
