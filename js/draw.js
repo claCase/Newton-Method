@@ -3,6 +3,7 @@ coloreLinea="#000000";
 x = 0; //di default x=0 così non darà errore se si schiaccia il pulsante e non c'è il testo
 testoX=20;
 testoY=18;
+
 function onload(){
 	canvasWidth = 1330;
 	canvasHeight = 560;
@@ -81,18 +82,11 @@ var f = function (x) { //passo a parametro x che verrà utilizzato dalla funzion
 	var abs = testoTrimmed.search("abs");
 	var rad = testoTrimmed.search("rad");
 	var log = testoTrimmed.search("log");
-	var squared = testoTrimmed.search("x#");
-	var cubed = testoTrimmed.search("x&");
 	var cos = testoTrimmed.search("cos"); //cerca nella funzione delle parole chiave 
 	var sin = testoTrimmed.search("sin");
 	var tan = testoTrimmed.search("tan");
 
-	if (squared!=-1) {//se il valore è stato trovato ovvero è diverso da -1
-		testoTrimmed = testoTrimmed.replace(/x#/g,"Math.pow(x,2)");
-	};
-	if (cubed!=-1) {//se il valore è stato trovato ovvero è diverso da -1
-		testoTrimmed = testoTrimmed.replace(/x&/g,"Math.pow(x,3)");
-	};	
+
 	if (cos!=-1) { 
 		testoTrimmed = testoTrimmed.replace(/cos/g,"Math.cos");  //sostituisca il valore con un'altra parola 
 	}
@@ -122,10 +116,12 @@ var f = function (x) { //passo a parametro x che verrà utilizzato dalla funzion
 		uno = testoTrimmed.substr(0,ugualeIndex);
 		due = testoTrimmed.substr(ugualeIndex,testoTrimmed.length);
 		testoTrimmed = (uno+"-("+due+")")// Mettere la seconda funzione negativa
+		console.log(testoTrimmed)
 	}
-
+	drawF(uno)
+	drawF(due)
 	testoTrimmed = eval(testoTrimmed); //trasforma il testo in azioni leggibili dal programma
-	return testoTrimmed; //ritora la funzione corretta
+	return testoTrimmed //ritora la funzione corretta
 }
 
 function getCaratteristiche () {
@@ -254,11 +250,12 @@ function getIntervallo () {
 		
 		if (a>b) { //controllo se a è maggiore di b
 			var cont = b;
-			b=a;
+			b= a;
 			a= cont;
 		};
 	};	
 	document.getElementById("intervallo").value = "";
+	console.log(a,b)
 	return [a,b];
 }
 
@@ -285,14 +282,14 @@ function calcoloZeri (a,b) {
 			E= (b-a)/2;
 			m = (b+a)/2; //==> f(m) : if(f(a)*f(m)<0){ b=m} 
 						 //==> if(f(a)*f(m)>0){a=m}
-			myWindow.document.write("<tr>");
+			/*myWindow.document.write("<tr>");
 			myWindow.document.write("<td>"+n+"</td>");
 			myWindow.document.write("<td>"+a+"</td>");
 			myWindow.document.write("<td>"+b+"</td>");
 			myWindow.document.write("<td>"+m+"</td>");
 			myWindow.document.write("<td>"+Number((f(m)).toFixed(3))+"</td>");			
 			myWindow.document.write("<td>"+E+"</td>");
-			myWindow.document.write("</tr>\n");
+			myWindow.document.write("</tr>\n");*/
 			if ((f(a)*f(m))<0) {
 				b=m;
 			}else{
@@ -300,7 +297,7 @@ function calcoloZeri (a,b) {
 			};
 			n++;
 		};
-	myWindow.document.write("</table>");
+	/*myWindow.document.write("</table>");*/
 	} else {
 		console.log("La funzione nell'intervallo indicato non è continua");
 	};
@@ -357,11 +354,6 @@ function getInfoLim () {
 	var a=intervall[0];
 	var b=intervall[1];
 	var approssimazione = getApprossimazione();
-/*	uno= (uno);
-	due= (due);*/
-	console.log("Prima f: "+uno+" Seconda f: "+due);
-	drawF(uno); //disegna le due funzioni composte(almeno in teoria...)
-	drawF(due);
 	calcoloZeri(a,b);
 
 }
