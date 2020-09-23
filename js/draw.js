@@ -117,9 +117,10 @@ var f = function (x) { //passo a parametro x che verrà utilizzato dalla funzion
 		due = testoTrimmed.substr(ugualeIndex,testoTrimmed.length);
 		testoTrimmed = (uno+"-("+due+")")// Mettere la seconda funzione negativa
 		console.log(testoTrimmed)
+		drawF(uno)
+		drawF(due)
 	}
-	drawF(uno)
-	drawF(due)
+	
 	testoTrimmed = eval(testoTrimmed); //trasforma il testo in azioni leggibili dal programma
 	return testoTrimmed //ritora la funzione corretta
 }
@@ -132,7 +133,7 @@ function getCaratteristiche () {
 
 	if (linea.length != 0 && linea.length==7) { //controlla se è vuoto o se ha un numero di caratteri maggiore di 7 (#123456)
 		coloreLinea=linea;   //assegna il valore digitato alla variabile globale
-
+		console.log(coloreLinea)
 	};
 	if (isNaN(spessoreLinea)!= true && spessoreLinea>0) { //controlla se la variabile non è un numero e se è maggiore di zero
 		spessore = spessoreLinea;
@@ -142,13 +143,13 @@ function getCaratteristiche () {
 		clearAll(); //richiamo la funzione che cancella tutto che poi al suo interno ha anche la funzione che ricrea gli assi
 	};
 
-document.getElementById("linea").value = "";  //fa ritornare bianche le caselle input
-document.getElementById("spessore").value = "";
-document.getElementById("scala").value = "";
+	document.getElementById("linea").value = "";  //fa ritornare bianche le caselle input
+	document.getElementById("spessore").value = "";
+	document.getElementById("scala").value = "";
 
 }
 
-function draw () {	
+function draw() {	
 	Ctx.strokeStyle= coloreLinea; //assegna il colore alla linea
 	Ctx.lineWidth = spessore;  //assegna lo spessore alla linea
 	Ctx.beginPath(); //incomincia il percorso 
