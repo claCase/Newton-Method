@@ -359,11 +359,3 @@ function getInfoLim () {
 
 }
 
-
-/*
-
-dove le due funzioni si incontrano: asintoto verticale P
-segmento che indica l'intervallo (rosso)... OPZIONALE
-
-
-*/
